@@ -1,0 +1,52 @@
+name: Test
+on:
+  push:
+    paths:
+      - '**.rb'
+      - '.github/workflows/test.yml'
+  pull_request:
+    branches: [master]
+    paths:
+      - '**.rb'
+      - '.github/workflows/test.yml'
+  schedule:
+    - cron: '0 5 * * 6'
+jobs:
+  checks:
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ['3.0.0']
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    steps:
+      - name: Download source
+        uses: actions/checkout@v4
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Lint code
+        run: bundle exec rubocop
+  specs:
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ['3.0.0', ruby, jruby, truffleruby]
+        experimental: [false]
+        include:
+          - ruby: head
+            experimental: true
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    steps:
+      - name: Download source
+        uses: actions/checkout@v4
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Run tests
+        run: bundle exec rspec -w
