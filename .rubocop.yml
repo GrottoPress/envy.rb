@@ -9,6 +9,9 @@ AllCops:
 Lint/AssignmentInCondition:
   Enabled: false
 
+Lint/ScriptPermission:
+  Enabled: false
+
 RSpec/ExampleLength:
   Enabled: false
 
