@@ -14,7 +14,7 @@ module Envy
       set_perms(files, perm: perm)
 
       if found = files.find { |file| File.readable?(file) }
-        next load_yaml(found, force: false)
+        return load_yaml(found, force: false)
       end
 
       raise Error, "Env file(s) not found or not readable"
@@ -26,7 +26,7 @@ module Envy
       set_perms(files, perm: perm)
 
       if found = files.find { |file| File.readable?(file) }
-        next load_yaml(found, force: true)
+        return load_yaml(found, force: true)
       end
 
       raise Error, "Env file(s) not found or not readable"
@@ -37,6 +37,7 @@ module Envy
 
   def load_yaml(path, force:)
     File.open(path) { |file| set_envs YAML.safe_load(file), force: force }
+    nil
   end
 
   def set_perms(files, perm: nil)
@@ -70,9 +71,10 @@ module Envy
     var = "ENVY_LOADED"
     return if ENV[var] == "yes"
 
-    yield
-
-    ENV[var] = "yes"
-    nil
+    begin
+      yield
+    ensure
+      ENV[var] = "yes"
+    end
   end
 end
