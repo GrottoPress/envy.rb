@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.metadata["rubygems_mfa_required"] = "true"
   spec.metadata["source_code_uri"] = "https://github.com/GrottoPress/envy.rb"
 
-  spec.files = Dir["lib/**/*.rb"] + ["LICENSE"]
+  spec.files = Dir["lib/**/*.rb", "LICENSE", "README.md"]
 
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
