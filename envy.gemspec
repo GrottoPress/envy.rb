@@ -5,8 +5,8 @@ require_relative "lib/envy/version"
 Gem::Specification.new do |spec|
   spec.name = "envy"
   spec.version = Envy::VERSION
-  spec.authors = ["akadusei"]
-  spec.email = ["attakusiadusei@gmail.com"]
+  spec.authors = ["GrottoPress", "N Atta Kusi Adusei"]
+  spec.email = ["info@grottopress.com"]
 
   spec.summary = "Load environment variables from YAML"
   spec.homepage = "https://github.com/GrottoPress/envy.rb"
