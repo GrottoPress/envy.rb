@@ -29,6 +29,8 @@ jobs:
           bundler-cache: true
       - name: Lint code
         run: bundle exec rubocop
+      - name: Check types
+        run: bundle exec steep check
   specs:
     strategy:
       fail-fast: false

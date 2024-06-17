@@ -1,4 +1,17 @@
 module Envy
-  VERSION: String
-  # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+  extend ::Envy
+
+  def from_file: (*String files, ?perm: Integer?) -> nil
+
+  def from_file!: (*String files, ?perm: Integer?) -> nil
+
+  private
+
+  def load_yaml: (String path, force: bool) -> nil
+
+  def set_perms: (Array[String] files, ?perm: Integer?) -> void
+
+  def set_envs: (untyped yaml, ?String prev_key, force: bool) -> void
+
+  def load_wrap: () { () -> untyped } -> nil
 end

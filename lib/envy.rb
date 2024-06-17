@@ -36,7 +36,7 @@ module Envy
   private
 
   def load_yaml(path, force:)
-    File.open(path) { |file| set_envs YAML.safe_load(file), force: force }
+    File.open(path) { |file| set_envs YAML.safe_load(file.read), force: force }
     nil
   end
 

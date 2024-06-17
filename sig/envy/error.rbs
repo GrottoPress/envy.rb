@@ -1,0 +1,4 @@
+module Envy
+  class Error < ::StandardError
+  end
+end
