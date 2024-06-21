@@ -124,34 +124,5 @@ RSpec.describe Envy do
       expect(ENV["APP_WEBHOOKS_1_URL"]).to eq("http://example.net")
       expect(ENV["APP_WEBHOOKS_1_TOKEN"]).to eq("d4e5f6")
     end
-
-    context "when env file not loaded" do
-      it "loads env file" do
-        expect(ENV["ENVY_LOADED"]).to be_nil
-
-        described_class.from_file ENV_FILE
-
-        expect(ENV["ENVY_LOADED"]).to eq("yes")
-        expect(ENV["APP_DATABASE_HOST"]).to eq("grottopress.com")
-        expect(ENV["APP_DATABASE_PORT"]).to eq("5432")
-        expect(ENV["APP_SERVER_HOSTS_0"]).to eq("grottopress.com")
-        expect(ENV["APP_SERVER_HOSTS_1"]).to eq("itechplus.org")
-        expect(ENV["APP_SERVER_PORT"]).to eq("80")
-      end
-    end
-
-    context "when env file already loaded" do
-      it "does not load env file again" do
-        ENV["ENVY_LOADED"] = "yes"
-
-        described_class.from_file ENV_FILE
-
-        expect(ENV["APP_DATABASE_HOST"]).to be_nil
-        expect(ENV["APP_DATABASE_PORT"]).to be_nil
-        expect(ENV["APP_SERVER_HOSTS_0"]).to be_nil
-        expect(ENV["APP_SERVER_HOSTS_1"]).to be_nil
-        expect(ENV["APP_SERVER_PORT"]).to be_nil
-      end
-    end
   end
 end

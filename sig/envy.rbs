@@ -12,6 +12,4 @@ module Envy
   def set_perms: (Array[String] files, ?perm: Integer?) -> void
 
   def set_envs: (untyped yaml, ?String prev_key, force: bool) -> void
-
-  def load_wrap: () { () -> untyped } -> nil
 end

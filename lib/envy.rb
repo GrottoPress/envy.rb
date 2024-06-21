@@ -10,27 +10,23 @@ module Envy
   extend self
 
   def from_file(*files, perm: nil)
-    load_wrap do
-      set_perms(files, perm: perm)
+    set_perms(files, perm: perm)
 
-      if found = files.find { |file| File.readable?(file) }
-        return load_yaml(found, force: false)
-      end
-
-      raise Error, "Env file(s) not found or not readable"
+    if found = files.find { |file| File.readable?(file) }
+      return load_yaml(found, force: false)
     end
+
+    raise Error, "Env file(s) not found or not readable"
   end
 
   def from_file!(*files, perm: nil)
-    load_wrap do
-      set_perms(files, perm: perm)
+    set_perms(files, perm: perm)
 
-      if found = files.find { |file| File.readable?(file) }
-        return load_yaml(found, force: true)
-      end
-
-      raise Error, "Env file(s) not found or not readable"
+    if found = files.find { |file| File.readable?(file) }
+      return load_yaml(found, force: true)
     end
+
+    raise Error, "Env file(s) not found or not readable"
   end
 
   private
@@ -66,15 +62,4 @@ module Envy
     end
   end
   # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
-
-  def load_wrap
-    var = "ENVY_LOADED"
-    return if ENV[var] == "yes"
-
-    begin
-      yield
-    ensure
-      ENV[var] = "yes"
-    end
-  end
 end
