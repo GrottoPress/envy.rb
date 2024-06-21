@@ -10,4 +10,9 @@ RuboCop::RakeTask.new do |task|
   task.requires << "rubocop-rake"
 end
 
-task default: %i[spec rubocop]
+desc "Check types"
+task :steep do
+  sh "bundle exec steep check"
+end
+
+task default: %i[spec rubocop steep]
